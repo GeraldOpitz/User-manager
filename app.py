@@ -44,6 +44,13 @@ def edit_user(id):
         return redirect(url_for('index'))
     return render_template('edit_user.html', user=user)
 
+@app.route('/delete/<int:id>')
+def delete_user(id):
+    user = User.query.get_or_404(id)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
